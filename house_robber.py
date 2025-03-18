@@ -1,15 +1,17 @@
 def robber_leftwards(arr):
-    print("Leftwards")
-
+    if len(arr) <= 0:
+        raise Exception("Need at least length 1")
+    
     # Creating maximumn list of zero
     maximums = [0] * len(arr)
-    total_max = 0
 
     # First value has to be the max
     maximums[0] = arr[0]
+    total_max = arr[0]
 
     # Second value max is either the first value or itself
-    maximums[1] = max(arr[0], arr[1])
+    if len(arr) > 1:    
+        maximums[1] = max(arr[0], arr[1])
 
     # Maximum of the current values is the max of the previous value
     # Or the maximum two houses ago plus the current value
@@ -20,22 +22,22 @@ def robber_leftwards(arr):
         if maximums[i] > total_max:
             total_max = maximums[i]
 
-    print(maximums)
-
     return total_max
 
 def robber_rightwards(arr):
-    print("Rightwards")
-
+    if len(arr) <= 0:
+        raise Exception("Need at least length 1")
+    
     # Creating maximumn list of zero
     maximums = [0] * len(arr)
-    total_max = 0
 
     # Last value has to be the max
     maximums[-1] = arr[-1]
+    total_max = arr[-1]
 
     # Second last value max is either the last value or itself
-    maximums[-2] = max(arr[-1], arr[-2])
+    if len(arr) > 1:    
+        maximums[-2] = max(arr[-1], arr[-2])
 
     # Maximum of the current values is the max of the previous value
     # Or the maximum two houses forward plus the current value
@@ -46,19 +48,36 @@ def robber_rightwards(arr):
         if maximums[i] > total_max:
             total_max = maximums[i]
 
-    print(maximums)
-
     return total_max
 
 def robber_homomorphism_worker(arr):
-    pass
+    if len(arr) <= 0:
+        raise Exception("Need at least length 1")
+
+    if len(arr) > 1:
+        aux_value_1 = robber_leftwards(arr)
+        aux_value_2 = robber_leftwards(arr[:-1])
+        aux_value_3 = robber_leftwards(arr[1:])
+        aux_value_4 = robber_leftwards(arr[1:-1])
+    else:
+        # Length has to equal one
+        aux_value_1 = arr[0]
+        aux_value_2 = arr[0]
+        aux_value_3 = arr[0]
+        aux_value_4 = arr[0]
+
+    return [aux_value_1, aux_value_2, aux_value_3, aux_value_4]
 
 def robber_dot_operator(arr1, arr2):
-    pass
+    
+    return max(max(arr1[1]+ arr2[0], arr1[0]+ arr2[2]),
+               max(arr1[1]+ arr2[1], arr1[0] + arr2[3]),
+               max(arr1[2] + arr2[2], arr1[3] + arr2[0]),
+               max(arr1[2] + arr2[3], arr1[3] + arr2[1]))
 
 if __name__ == '__main__':
-    # test_arr = [3,4,2,1,3,5,1]
-    test_arr = [3,4,2,1,3,5,1,4]
+    test_arr = [3,4,2,1,3,5,1]
+    # test_arr = [3,4,2,1,3,5,1,4]
 
     print(test_arr[:3], test_arr[3:])
 
@@ -72,4 +91,7 @@ if __name__ == '__main__':
     print("Result left:", leftwards)
     print("Result right:", rightwards)
 
-    # print(max(leftwards, rightwards))
+    print("Result homomorphism left:", homomorphism_left)
+    print("Result homomorphism right:", homomorphism_right)
+    print("Final Homomorphism:", homomorphism)
+    
