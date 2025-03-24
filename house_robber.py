@@ -1,4 +1,22 @@
+# troyjlee@gmail.com
+
+
+import functools
+import operator
+
+def foldl(func, acc, xs):
+  return functools.reduce(func, xs, acc)
+
+def robber_left(maxs, val):
+    return [maxs[1], max(maxs[0] + val, maxs[1])]
+
+# tests
+print(foldl(robber_left, [0,0], [100,1,1,100])) # -6
+print(foldl(operator.add, 'L', ['1','2','3'])) # 'L123'
+
+
 def robber_leftwards(arr):
+
     if len(arr) <= 0:
         raise Exception("Need at least length 1")
     
@@ -76,8 +94,9 @@ def robber_dot_operator(arr1, arr2):
                max(arr1[2] + arr2[3], arr1[3] + arr2[1]))
 
 if __name__ == '__main__':
-    test_arr = [3,4,2,1,3,5,1]
+    # test_arr = [3,4,2,1,3,5,1]
     # test_arr = [3,4,2,1,3,5,1,4]
+    test_arr = [100, 1, 1, 100]
 
     print(test_arr[:3], test_arr[3:])
 
