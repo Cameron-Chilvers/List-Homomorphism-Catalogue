@@ -26,5 +26,5 @@ def maxLoot(hval):
     return maxLootRec(hval, n)
 
 if __name__ == "__main__":
-    hval = [3,4,2,1,3,5,1]
+    hval = [3,4,2,1,3,5,1,4]
     print(maxLoot(hval))

@@ -15,6 +15,4 @@ def maxSubarraySum(arr):
     return res
 
 arr = [2, 3, -8, 7, -1, 2, 3]
-test_arr = [-1,3,4,4,-1,0]
-
-print(maxSubarraySum(test_arr))
+print(maxSubarraySum(arr))
