@@ -3,12 +3,12 @@ import math
 
 def mssp_left(aux_info, val):
     print("before: ", aux_info, val)
-
+    sum = aux_info[3] + val
     res =  [
-        max(aux_info[0] + val, val),                                               # mss[0:n]
-        max(aux_info[1], aux_info[1] + val, val) if abs(aux_info[1]) - abs(aux_info[3]) != 0 else aux_info[1],        # mss including first element
-        max(aux_info[0], aux_info[2]),                                         # mss including last element
-        aux_info[3] + val                                                              # Sum
+        max(aux_info[0], aux_info[2] + val, val),             # mss[0:n]
+        max(sum, aux_info[1]),                  # mss including first element
+        max(aux_info[2] + val, val),                # mss including last element
+        sum                                           # Sum
     ]  
 
     print("after: ", res)
@@ -31,7 +31,7 @@ test_arr = [-1,3,4,4,-1,0]
 half_split_num = len(test_arr) // 2
 print('Info: ',test_arr[:half_split_num], test_arr[half_split_num:])
 
-aux_info_l = [0,-math.inf,0,0]
+aux_info_l = [-math.inf,-math.inf,-math.inf,0]
 
 homomorphism_left = foldl(mssp_left, aux_info_l, test_arr[:half_split_num])
 print('break')

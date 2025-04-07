@@ -18,7 +18,7 @@ def robber_right(val, aux_info):
       ]
 
 def robber_dot_operator_l(arr1, arr2):    
-    return max(max(arr1[0] + arr2[1], arr1[1] + arr2[3]),
+    return max(max(arr1[0] + arr2[1], arr1[1] + arr2[3]),   # Write x[1:n-1] + y[0:n] for all of these
                max(arr1[0] + arr2[0], arr1[1] + arr2[2]),
                max(arr1[3] + arr2[3], arr1[2] + arr2[1]),
                max(arr1[3] + arr2[2], arr1[2] + arr2[0]))
