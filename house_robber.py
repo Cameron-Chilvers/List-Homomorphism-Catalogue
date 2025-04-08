@@ -3,18 +3,18 @@ from fold_functions import foldl, foldr
 
 def robber_left(aux_info, val):
     return [
-        aux_info[1],                          # max(x[0:n-1])
-        max(aux_info[0] + val, aux_info[1]),  # max(x[0:n])
-        aux_info[3],                          # max(x[1:n-1]) 
-        max(aux_info[2] + val, aux_info[3])   # max(x[1:n])
+        aux_info[1],                                        # max(x[0:n-1])
+        max(aux_info[0] + val, aux_info[1]),                # max(x[0:n])
+        aux_info[3],                                        # max(x[1:n-1]) 
+        max(aux_info[2] + val, aux_info[3])                 # max(x[1:n])
     ]  
 
 def robber_right(val, aux_info):
     return [
-          max(aux_info[2] + val, aux_info[0]),  # max(x[0:n-1])
-          max(aux_info[3] + val, aux_info[1]),  # max(x[0:n])
-          aux_info[0],                          # max(x[1:n-1]) 
-          aux_info[1]                           # max(x[1:n])
+          max(aux_info[2] + val, aux_info[0]),              # max(x[0:n-1])
+          max(aux_info[3] + val, aux_info[1]),              # max(x[0:n])
+          aux_info[0],                                      # max(x[1:n-1]) 
+          aux_info[1]                                       # max(x[1:n])
       ]
 
 def robber_dot_operator(arr1, arr2):    
@@ -43,4 +43,4 @@ homomorphism = robber_dot_operator(homomorphism_left, homomorphism_right)
 print("Result homomorphism left:", homomorphism_left)
 print("Result homomorphism right:", homomorphism_right)
 
-print("Final Homomorphism combine: ", homomorphism)
+print("Final Homomorphism: ", homomorphism)
