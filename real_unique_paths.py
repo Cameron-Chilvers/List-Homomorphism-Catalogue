@@ -9,6 +9,6 @@ def uniquePaths(m: int, n: int) -> int:
 
 
 m = 2
-n = 4
+n = 6
 
 print(uniquePaths(m, n))

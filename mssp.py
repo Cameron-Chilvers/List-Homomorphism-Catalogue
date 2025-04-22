@@ -1,7 +1,7 @@
 from fold_functions import foldl, foldr
 import math 
 
-def mssp_left(aux_info, val):
+def mssp_leftwards(aux_info, val):
     # Written for ease of use
     sum = aux_info[3] + val 
     
@@ -12,7 +12,7 @@ def mssp_left(aux_info, val):
         sum                                           # Sum
     ]  
 
-def mssp_right(val, aux_info):
+def mssp_rightwards(val, aux_info):
     # Written for ease of use
     sum = aux_info[3] + val
 
@@ -44,9 +44,9 @@ print('Info: ',test_arr[:half_split_num], test_arr[half_split_num:])
 aux_info_l = [-math.inf,-math.inf,-math.inf,0]
 aux_info_r = [-math.inf,-math.inf,-math.inf,0]
 
-homomorphism_left = foldl(mssp_left, aux_info_l, test_arr[:half_split_num])
+homomorphism_left = foldl(mssp_leftwards, aux_info_l, test_arr[:half_split_num])
 
-homomorphism_right = foldr(mssp_right, aux_info_r, test_arr[half_split_num:])
+homomorphism_right = foldr(mssp_rightwards, aux_info_r, test_arr[half_split_num:])
 
 homomorphism = mssp_dot_operator(homomorphism_left, homomorphism_right)
 

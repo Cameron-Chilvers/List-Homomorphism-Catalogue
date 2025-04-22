@@ -2,38 +2,63 @@ import copy
 from fold_functions import foldl, foldr
 import math
 
-def unique_paths_left(aux_info, val):
+def unique_paths_leftwards(aux_info, val):
     # Using binomal numbers to get value of every point
-    print(aux_info, val)
 
     grid_with_vals = aux_info
+    # Initialising the top of the grid with its binomial numbres
     if len(grid_with_vals) == 0:
+        # Intitalising the first row
         for i in range(val):
             grid_with_vals.append([i,i])
-    else:
+
+        # Creating final data structure
         grid_with_vals = [grid_with_vals]
         grid_with_vals.append([copy.deepcopy(grid_with_vals[0][-1])])
-
+    else:
+        # Making the row and column info        
         for i in range(1, val):    
+            # Creating row info
             for space in grid_with_vals[0]:
-                temp = space[0] + 1
-                space[0] = temp
+                space[0] = space[0] + 1
 
-            print(grid_with_vals[0][-1], grid_with_vals[0])
+            # Appending the final column data
             grid_with_vals[1].append(copy.deepcopy(grid_with_vals[0][-1]))
         
-    print(grid_with_vals)
     return grid_with_vals
 
 
-def unique_paths_right(val, aux_info):
-    pass
+def unique_paths_rightwards(val, aux_info):
+    # Using binomal numbers to get value of every point
+
+    grid_with_vals = aux_info
+    # Intitalising the first column
+    if len(grid_with_vals) == 0:
+        for i in range(val):
+            grid_with_vals.append([i,0])
+
+        # Build final data structure 
+        grid_with_vals = [grid_with_vals]
+        grid_with_vals.append([copy.deepcopy(grid_with_vals[0][-1])])
+
+        # Reverse array as the rightwards does it in the opposite direction
+        grid_with_vals = grid_with_vals[::-1]
+    else:
+        # Looping to create the final end rows and columns
+        for i in range(1, val): 
+            # Creating column info
+            for space in grid_with_vals[1]:
+                space[0] = space[0] + 1
+                space[1] = space[1] + 1
+
+            # Appending the final row data
+            grid_with_vals[0].append(copy.deepcopy(grid_with_vals[1][-1]))
+        
+    return grid_with_vals 
 
 def unqiue_paths_dot_operator(arr1, arr2):
-    # Do binomial math here?
-
-    # [0] = Combine horizontally
-    # [1] = Combine vertically
+    # [0] = Combine vertically
+    # [1] = Combine horizontally
 
     if len(arr1[1]) != len(arr2[1]):
         print("Cannot compute on different sizes")
@@ -42,10 +67,8 @@ def unqiue_paths_dot_operator(arr1, arr2):
     # Can change this all out for binomal math, Need to research tho
     final = []
     for i in range(len(arr1[1])):
-        print(i, arr1[1][i], arr2[1][-(i + 1)])
         binom_one = math.comb(arr1[1][i][0], arr1[1][i][1])
         binom_two = math.comb(arr2[1][-(i + 1)][0], arr2[1][-(i + 1)][1])
-        print(binom_one, binom_two)
 
         if len(final) == 0:
             final.append(binom_one * binom_two)
@@ -55,30 +78,25 @@ def unqiue_paths_dot_operator(arr1, arr2):
     return final
 
 
-test_arr = [5, 5]
+test_arr = [2, 6]
 
-# THIS SPLIT NEEDS TO BE THE NUMBER NOT THE ARR ITSELF
+# Finding the middle of the arr
 split_x = test_arr[0] // 2
 
 half_one  = [test_arr[0] - split_x, test_arr[1]]
 half_two  = [split_x, test_arr[1]]
 print('Info: ', half_one, half_two)
 
-aux_info = []
-aux_info_2 = []
+aux_info_l = []
+aux_info_r = []
 
+homomorphism_left = foldl(unique_paths_leftwards, aux_info_l, half_one)
 
-homomorphism_left = foldl(unique_paths_left, aux_info, half_one)
-print("\n\n")
-homomorphism_left_2 = foldl(unique_paths_left, aux_info_2, half_two)
+homomorphism_right = foldr(unique_paths_rightwards, aux_info_r, half_two)
 
-homomorphism_right = foldr(unique_paths_right, aux_info, half_two)
-
-print('\n\n')
-homomorphism = unqiue_paths_dot_operator(homomorphism_left, homomorphism_left_2)
+homomorphism = unqiue_paths_dot_operator(homomorphism_left, homomorphism_right)
 
 print("Result homomorphism left:", homomorphism_left)
-print("Result homomorphism left 2:", homomorphism_left_2)
-# print("Result homomorphism right:", homomorphism_right)
+print("Result homomorphism right:", homomorphism_right)
 
 print("Final Homomorphism: ", homomorphism)
