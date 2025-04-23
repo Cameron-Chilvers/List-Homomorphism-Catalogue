@@ -7,6 +7,9 @@ automaton = {('s0', 0): 's0', ('s0', 1): 's1',
              ('s2', 0): 's1', ('s2', 1): 's2'}
 # Where s0 is the start state
 
+# need to make a reverse function for automatons
+# transpose
+
 def apply_state(state,val):
     return automaton[(state, int(val))]
 
@@ -27,8 +30,6 @@ def automata_dot_operator(arr1, arr2):
         final.append(arr2[int(arr1[i][-1])])
 
     return final
-
-
 
 num = '110101001'
 

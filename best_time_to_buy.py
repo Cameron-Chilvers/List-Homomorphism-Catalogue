@@ -16,6 +16,7 @@ def best_time_rightwards(val, aux_info):
             max(aux_info[2], max(aux_info[1], val) - val)
         ]
 
+# Fix dot operators
 def best_time_dot_operator(arr1, arr2):
     return max(arr1[2], arr2[2], arr2[1] - arr1[0])
 
