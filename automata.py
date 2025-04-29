@@ -31,28 +31,29 @@ def automata_dot_operator(arr1, arr2):
 
     return final
 
-num = '110101001'
+if __name__ == '__main__':
+    num = '110101001'
 
-half_split_num = len(num) // 2
-print('Info: ',num[:half_split_num], num[half_split_num:])
+    half_split_num = len(num) // 2
+    print('Info: ',num[:half_split_num], num[half_split_num:])
 
-aux_info_l = ['s0','s1','s2']
-aux_info_r = ['s0','s1','s2']
+    aux_info_l = ['s0','s1','s2']
+    aux_info_r = ['s0','s1','s2']
 
 
-homomorphism_leftwards = foldl(automata_leftwards, aux_info_l, num[:half_split_num])
-homomorphism_leftwards_2 = foldl(automata_leftwards, aux_info_l, num[half_split_num:])
+    homomorphism_leftwards = foldl(automata_leftwards, aux_info_l, num[:half_split_num])
+    homomorphism_leftwards_2 = foldl(automata_leftwards, aux_info_l, num[half_split_num:])
 
-print(homomorphism_leftwards)
-print(homomorphism_leftwards_2)
+    print(homomorphism_leftwards)
+    print(homomorphism_leftwards_2)
 
-homomorphism = automata_dot_operator(homomorphism_leftwards, homomorphism_leftwards_2)
+    homomorphism = automata_dot_operator(homomorphism_leftwards, homomorphism_leftwards_2)
 
-print(homomorphism)
+    print(homomorphism)
 
-curr_state = 's0'
-for char in num:
-    curr_state = apply_state(curr_state, char)
+    curr_state = 's0'
+    for char in num:
+        curr_state = apply_state(curr_state, char)
 
-print(curr_state == 's0')
+    print(curr_state == 's0')
 

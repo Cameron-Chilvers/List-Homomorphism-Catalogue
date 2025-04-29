@@ -8,7 +8,7 @@ def uniquePaths(m: int, n: int) -> int:
         return dp[n-1][m-1]
 
 
-m = 2
-n = 6
+m = 5
+n = 5
 
 print(uniquePaths(m, n))
