@@ -65,10 +65,9 @@ def unique_paths_rightwards(val, aux_info):
         
     return grid_with_vals 
 
-# Why not just do the leftwards and rightwrd logic here, oh wait cause need to resutn list ....
-# cannot jsut pass up nuimerb
+# Can jsut say this only works for combining on the horizontal, this whole almost list homomorphism
 def unqiue_paths_dot_operator_horizontal(arr1, arr2):
-    # [1] = Combine horizontally
+
     if len(arr1) != len(arr2):
         print("Cannot compute on different sizes")
         return []
@@ -78,12 +77,10 @@ def unqiue_paths_dot_operator_horizontal(arr1, arr2):
     for i in range(len(arr1)):
         # Adding for storage
         final.append([])
-
-        if i == 0 or i == 1:
+        if i == 0:
             # Extend
             final[i].extend(arr1[i])
 
-            print(final)
             for j in range(len(arr2[i])):
                 
                 info = [
@@ -93,16 +90,27 @@ def unqiue_paths_dot_operator_horizontal(arr1, arr2):
                 ]
 
                 final[i].append(info)
-                print("J", j)
+        
+        if i == 1:
+            num_rows = len(arr1[i])
 
-        else:
-            # FIND THE COMBINATION OF THE TWO ROWS
-            for j in range(len(arr1[i])):
+            for j in range(num_rows):
+                print(j)
                 if len(final[i]) == 0:
-                    final[i].append(['temp', 'temp', arr1[i][j][2] * arr2[i][-(j+1)][2]])
-                else: 
-                    final[i].append(['temp', 'temp', final[i][-1][-1]+(arr1[i][j][2] * arr2[i][-(j+1)][2])])
+                    final[i].append(final[0][-1])
+                else:
+                    num_1 = final[0][-1][0] - j
+                    num_2 = final[0][-1][1]
 
+                    info = [
+                        num_1,
+                        num_2,
+                        math.comb(num_1, num_2)
+                    ]
+
+                    final[i].append(info)
+
+            final[i] = final[i][::-1]
     return final
 
 if __name__ == '__main__':

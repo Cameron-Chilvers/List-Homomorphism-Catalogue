@@ -7,8 +7,16 @@ automaton = {('s0', 0): 's0', ('s0', 1): 's1',
              ('s2', 0): 's1', ('s2', 1): 's2'}
 # Where s0 is the start state
 
-# need to make a reverse function for automatons
-# transpose
+# Transposed to find the right fold
+def transpose_automata():
+    transposed_automata = {}
+    for (from_state, val), to_state in automaton.items():
+        if (to_state, val) not in transposed_automata:
+            transposed_automata[(to_state, val)] = from_state
+
+    return transposed_automata
+
+# Used to create the base case
 def get_unique_states():
     all_states = set()
     for state, val in automaton.keys():
@@ -16,7 +24,10 @@ def get_unique_states():
     
     return sorted(list(all_states))
 
-def apply_state(state,val):
+def apply_state(state, val, use_transposed = False):
+    if use_transposed:
+        return transpose_automata()[(state, int(val))]
+
     return automaton[(state, int(val))]
 
 def automata_leftwards(aux_info, val):
@@ -27,7 +38,11 @@ def automata_leftwards(aux_info, val):
     return final
 
 def automata_rightwards(val, aux_info):
-    return
+    final = []
+    for i in range(len(aux_info)):
+        final.append(apply_state(aux_info[i], int(val), use_transposed=True))
+
+    return final
 
 def automata_dot_operator(arr1, arr2):
     final = []
@@ -48,7 +63,7 @@ if __name__ == '__main__':
 
 
     homomorphism_leftwards = foldl(automata_leftwards, aux_info_l, num[:half_split_num])
-    homomorphism_leftwards_2 = foldl(automata_leftwards, aux_info_l, num[half_split_num:])
+    homomorphism_leftwards_2 = foldr(automata_rightwards, aux_info_r, num[half_split_num:])
 
     print(homomorphism_leftwards)
     print(homomorphism_leftwards_2)
