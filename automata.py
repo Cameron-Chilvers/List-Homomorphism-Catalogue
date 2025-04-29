@@ -9,6 +9,12 @@ automaton = {('s0', 0): 's0', ('s0', 1): 's1',
 
 # need to make a reverse function for automatons
 # transpose
+def get_unique_states():
+    all_states = set()
+    for state, val in automaton.keys():
+        all_states.add(state)
+    
+    return sorted(list(all_states))
 
 def apply_state(state,val):
     return automaton[(state, int(val))]
