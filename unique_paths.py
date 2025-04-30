@@ -65,7 +65,7 @@ def unique_paths_rightwards(val, aux_info):
         
     return grid_with_vals 
 
-# Can jsut say this only works for combining on the horizontal, this whole almost list homomorphism
+# Can jsut say this only works for combining on the horizontal, this dot operator
 def unqiue_paths_dot_operator_horizontal(arr1, arr2):
 
     if len(arr1) != len(arr2):
