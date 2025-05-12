@@ -18,33 +18,10 @@ def robber_rightwards(val, aux_info):
       ]
 
 def robber_dot_operator(arr1, arr2):    
-
-    start_to_end_minus_one = max(
-                                max(arr1[3] + arr2[2], arr1[2] + arr2[0]),     # max(arr1[1:n] + arr2[1:n-1], arr1[1:n-1] + arr2[0:n-1])
-                                max(arr1[2]+ arr2[2], arr1[1] + arr2[2]),      # max(arr1[1:n-1] + arr2[1:n-1], arr1[0:n] + arr2[1:n-1])
-                                max(arr1[0] + arr2[0], arr1[0] + arr2[2])     # max(arr1[0:n-1] + arr2[0:n-1], arr1[0:n-1] + arr2[1:n-1])  
-                            )
-
-    start_to_end =  max(
-                        max(arr1[0] + arr2[1], arr1[1] + arr2[3]),     # max(arr1[0:n-1] + arr2[0:n], arr1[0:n] + arr2[1:n])      
-                        max(arr1[0] + arr2[0], arr1[1] + arr2[2]),     # max(arr1[0:n-1] + arr2[0:n-1], arr1[0:n] + arr2[1:n-1])  
-                        max(arr1[3] + arr2[3], arr1[2] + arr2[1]),     # max(arr1[1:n] + arr2[1:n], arr1[1:n-1] + arr2[0:n])      
-                        max(arr1[3] + arr2[2], arr1[2] + arr2[0]),     # max(arr1[1:n] + arr2[1:n-1], arr1[1:n-1] + arr2[0:n-1]) 
-                        max(arr1[0] + arr2[2], arr1[0], arr2[3]),      # max(arr1[0:n-1] + arr2[1:n-1], arr1[0:n-1] + arr2[1:n])
-                        max(arr1[2]+ arr2[2], arr1[2] + arr2[3])       # max(arr1[1:n-1] + arr2[1:n-1], arr1[1:n-1] + arr2[1:n])
-                    )
-
-    one_to_end_minus_one = max(
-                        max(arr1[2] + arr2[0], arr1[2]+ arr2[2]),     # max(arr1[1:n] + arr2[1:n-1], arr1[1:n-1] + arr2[1:n-1], arr1[1:n] + arr2[1:n-1])
-                        max(arr1[3] + arr2[2], -math.inf)             # max(arr1[1:n] + arr2[1:n-1], -infinity)
-                    )
-    one_to_end =  max(
-                    max(arr1[2] + arr2[0], arr1[2]+ arr2[2]),     # max(arr1[1:n] + arr2[1:n-1], arr1[1:n-1] + arr2[1:n-1])
-                    max(arr1[2] + arr2[1], arr1[2] + arr2[3]),     # max(ar1[1:n-1] + arr2[0:n]r, arr1[1:n-1] + arr2[1:n])
-                    max(arr1[3] + arr2[2], arr1[3] + arr2[3])     # max(arr1[1:n] + arr2[1:n-1], arr1[1:n] + arr2[1:n])
-                )        
-
-    return [start_to_end_minus_one, start_to_end, one_to_end_minus_one, one_to_end]   
+    return [max(arr1[0] + arr2[0], arr1[1] + arr2[2]), 
+            max(arr1[0] + arr2[1], arr1[1] + arr2[3]), 
+            max(arr1[2] + arr2[0], arr1[3] + arr2[2]), 
+            max(arr1[2] + arr2[1], arr1[2] + arr2[3])]   
 
 if __name__ == '__main__':
     # test_arr = [3,4,2,1,3,5,1]

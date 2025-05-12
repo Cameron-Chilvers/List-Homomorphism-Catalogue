@@ -9,7 +9,7 @@ def mssp_leftwards(aux_info, val):
         max(aux_info[0], aux_info[2] + val, val),     # mss[0:n]
         max(sum, aux_info[1]),                        # mss including first element (mfe)
         max(aux_info[2] + val, val),                  # mss including last element (mle)
-        sum                                           # Sum
+        sum                                           # Total Sum
     ]  
 
 def mssp_rightwards(val, aux_info):
@@ -20,7 +20,7 @@ def mssp_rightwards(val, aux_info):
         max(aux_info[0], aux_info[1] + val, val),     # mss[0:n]
         max(aux_info[1] + val, val),                  # mss including first element (mfe)
         max(sum, aux_info[2]),                        # mss including last element (mle)
-        sum                                           # Sum
+        sum                                           # Total Sum
     ]  
 
 

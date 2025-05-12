@@ -1,13 +1,36 @@
 from fold_functions import foldl, foldr
+import re
 
 # This only works if the automaton is in this form with the states with unique index
 # Each index also refers to the order they will be placed in the aux_info
-automaton = {('s0', 0): 's0', ('s0', 1): 's1',
+divisible_by_three = {('s0', 0): 's0', ('s0', 1): 's1',
              ('s1', 0): 's2', ('s1', 1): 's0',
              ('s2', 0): 's1', ('s2', 1): 's2'}
+
+even_ones = {
+    ('s0', 0): 's0', ('s0', 1): 's1',
+    ('s1', 0): 's1', ('s1', 1): 's0'
+}
+
+# This does not work as when through the transpose function some states do not have a enter state for all language
+contains_0101 =  {('s0', 0): 's1', ('s0', 1): 's0',
+             ('s1', 0): 's1', ('s1', 1): 's2',
+             ('s2', 0): 's3', ('s2', 1): 's0',
+             ('s3', 0): 's1', ('s3', 1): 's4',
+            ('s4', 0): 's4', ('s4', 1): 's4'}
+
+# Also the same as above the transpose does not work but the leftwards function does
+ends_with_0 = {
+    ('s0', 0): 's1', ('s0', 1): 's2',
+    ('s1', 0): 's1', ('s1', 1): 's2',
+    ('s2', 0): 's1', ('s2', 1): 's2'
+}
+
+automaton = divisible_by_three
 # Where s0 is the start state
 
 # Transposed to find the right fold
+# This does not deal with automatons which when transposed they are NFAs not DFAs
 def transpose_automata():
     transposed_automata = {}
     for (from_state, val), to_state in automaton.items():
@@ -48,18 +71,18 @@ def automata_dot_operator(arr1, arr2):
     final = []
 
     for i in range(len(arr1)):
-        final.append(arr2[int(arr1[i][-1])])
+        final.append(arr2[int(re.search(r'\d+$', arr1[i]).group())])
 
     return final
 
 if __name__ == '__main__':
-    num = '110101001'
+    num = '11000'
 
     half_split_num = len(num) // 2
     print('Info: ',num[:half_split_num], num[half_split_num:])
 
-    aux_info_l = ['s0','s1','s2']
-    aux_info_r = ['s0','s1','s2']
+    aux_info_l = get_unique_states()
+    aux_info_r = get_unique_states()
 
 
     homomorphism_leftwards = foldl(automata_leftwards, aux_info_l, num[:half_split_num])
@@ -71,10 +94,3 @@ if __name__ == '__main__':
     homomorphism = automata_dot_operator(homomorphism_leftwards, homomorphism_leftwards_2)
 
     print(homomorphism)
-
-    curr_state = 's0'
-    for char in num:
-        curr_state = apply_state(curr_state, char)
-
-    print(curr_state == 's0')
-
