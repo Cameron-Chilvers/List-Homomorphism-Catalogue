@@ -38,7 +38,7 @@ def unique_paths_rightwards(val, aux_info):
     # Initialising the first column
     if len(grid_with_vals) == 0:
         for i in range(val):
-            grid_with_vals.append([i,0, math.comb(i, 0), math.comb(i,0)])
+            grid_with_vals.append([i,0, math.comb(i, 0)])
         
     else:
         # Looping to create the final end rows and columns
@@ -65,7 +65,7 @@ def unique_paths_dot_operator(arr1, arr2):
     final = []
         
     # Making sure it always goes up one as per the pattern
-    val = min(arr1[0][0], arr2[0][0]) + 1
+    val = arr2[0][0] + 1
     addition_values = [val, val]
 
     for i in range(len(arr1)):
@@ -82,7 +82,7 @@ def unique_paths_dot_operator(arr1, arr2):
     return final
 
 if __name__ == '__main__':
-    test_arr = [4, 5]
+    test_arr = [3, 5]
 
     # Finding the middle of the arr
     split_x = test_arr[0] // 2

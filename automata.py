@@ -54,35 +54,27 @@ def apply_state(state, val, use_transposed = False):
     return automaton[(state, int(val))]
 
 def automata_leftwards(aux_info, val):
-    final = []
-    for i in range(len(aux_info)):
-        final.append(apply_state(aux_info[i], int(val)))
+    return {k: apply_state(v, val) for k, v in aux_info.items()}
 
-    return final
 
 def automata_rightwards(val, aux_info):
-    final = []
-    for i in range(len(aux_info)):
-        final.append(apply_state(aux_info[i], int(val), use_transposed=True))
+    return {k: apply_state(v, val, use_transposed=True) for k, v in aux_info.items()}
 
-    return final
 
 def automata_dot_operator(arr1, arr2):
-    final = []
+    return {k: arr2[v] for k, v in arr1.items()}
 
-    for i in range(len(arr1)):
-        final.append(arr2[int(re.search(r'\d+$', arr1[i]).group())])
-
-    return final
+def make_aux_info_dict():
+    return {state: state for state in get_unique_states()}
 
 if __name__ == '__main__':
-    num = '11000'
+    num = '1001'
 
     half_split_num = len(num) // 2
     print('Info: ',num[:half_split_num], num[half_split_num:])
 
-    aux_info_l = get_unique_states()
-    aux_info_r = get_unique_states()
+    aux_info_l = make_aux_info_dict()
+    aux_info_r = make_aux_info_dict()
 
 
     homomorphism_leftwards = foldl(automata_leftwards, aux_info_l, num[:half_split_num])
